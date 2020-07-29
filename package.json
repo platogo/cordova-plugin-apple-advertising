@@ -1,0 +1,19 @@
+{
+  "name": "cordova-plugin-apple-advertising",
+  "version": "0.0.1",
+  "description": "Cordova Apple Advertising",
+  "cordova": {
+    "id": "cordova-plugin-apple-advertising",
+    "platforms": [
+      "ios"
+    ]
+  },
+  "keywords": [
+    "cordova",
+    "device",
+    "ecosystem:cordova",
+    "cordova-ios"
+  ],
+  "author": "Platogo",
+  "license": "Apache 2.0"
+}
