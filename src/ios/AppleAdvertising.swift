@@ -22,12 +22,12 @@ import AppTrackingTransparency
                 @unknown default:
                     pluginResult = CDVPluginResult (status: CDVCommandStatus_ERROR, messageAs: "Unknown");
             }
+            self.commandDelegate!.send(pluginResult, callbackId: command.callbackId);
         }
     } else {
         let idfa = ASIdentifierManager.shared().advertisingIdentifier
         pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: idfa.uuidString);
+        self.commandDelegate!.send(pluginResult, callbackId: command.callbackId);
     }
-
-    self.commandDelegate!.send(pluginResult, callbackId: command.callbackId);
   }
 }
