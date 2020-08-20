@@ -1,4 +1,3 @@
-cordova.define("cordova-plugin-apple-advertising.AppleAdvertising", function(require, exports, module) {
 var exec = require('cordova/exec');
 
 function AppleAdvertising() { }
@@ -17,5 +16,3 @@ AppleAdvertising.prototype.getTrackingAuthorizationStatus = function () {
 
 
 module.exports = new AppleAdvertising();
-
-});
