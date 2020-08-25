@@ -25,8 +25,14 @@ import AppTrackingTransparency
             self.commandDelegate!.send(pluginResult, callbackId: command.callbackId);
         }
     } else {
-        let idfa = ASIdentifierManager.shared().advertisingIdentifier
-        pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: idfa.uuidString);
+        let idfa = ASIdentifierManager.shared().advertisingIdentifier.uuidString
+        
+        if (idfa == "00000000-0000-0000-0000-000000000000") {
+            pluginResult = CDVPluginResult (status: CDVCommandStatus_ERROR, messageAs: "Zeros_IDFA");
+        } else {
+            pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: idfa);
+        }
+        
         self.commandDelegate!.send(pluginResult, callbackId: command.callbackId);
     }
     }
