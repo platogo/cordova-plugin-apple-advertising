@@ -8,20 +8,13 @@ import AppTrackingTransparency
 
     if #available(iOS 14.0, *) {
         ATTrackingManager.requestTrackingAuthorization { status in
-            switch status {
-                case .authorized:
-                    let idfa = ASIdentifierManager.shared().advertisingIdentifier
-                    pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: idfa.uuidString);
-                case .denied:
-                    // permission was denied in dialog
-                    pluginResult = CDVPluginResult (status: CDVCommandStatus_ERROR, messageAs: "denied");
-                case .notDetermined:
-                    pluginResult = CDVPluginResult (status: CDVCommandStatus_ERROR, messageAs: "notDetermined");
-                case .restricted:
-                    pluginResult = CDVPluginResult (status: CDVCommandStatus_ERROR, messageAs: "restricted");
-                @unknown default:
-                    pluginResult = CDVPluginResult (status: CDVCommandStatus_ERROR, messageAs: "unknown");
+            if (status == .authorized) {
+                let idfa = ASIdentifierManager.shared().advertisingIdentifier
+                pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: idfa.uuidString);
+            } else {
+                pluginResult = CDVPluginResult (status: CDVCommandStatus_ERROR, messageAs: status.rawValue);
             }
+
             self.commandDelegate!.send(pluginResult, callbackId: command.callbackId);
         }
     } else {
@@ -43,19 +36,7 @@ import AppTrackingTransparency
 
         if #available(iOS 14.0, *) {
             let status = ATTrackingManager.trackingAuthorizationStatus;
-            switch status {
-                case .authorized:
-                    pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "authorized");
-                case .denied:
-                    pluginResult = CDVPluginResult (status: CDVCommandStatus_OK, messageAs: "denied");
-                case .notDetermined:
-                    pluginResult = CDVPluginResult (status: CDVCommandStatus_OK, messageAs: "notDetermined");
-                case .restricted:
-                    pluginResult = CDVPluginResult (status: CDVCommandStatus_OK, messageAs: "restricted");
-                @unknown default:
-                    pluginResult = CDVPluginResult (status: CDVCommandStatus_OK, messageAs: "unknown");
-            }
-        
+            pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: status.rawValue)
             self.commandDelegate!.send(pluginResult, callbackId: command.callbackId);
         
       } else {
