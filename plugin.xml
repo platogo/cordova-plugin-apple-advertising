@@ -4,6 +4,11 @@
     <description>Get iOS IDFA</description>
     <license>Apache 2.0</license>
     <keywords>cordova,device</keywords>
+
+    <engines>
+        <engine name="cordova-ios" version=">=6.0.0" />
+    </engines>
+
     <js-module src="www/AppleAdvertising.js" name="AppleAdvertising">
         <clobbers target="AppleAdvertising" />
     </js-module>
